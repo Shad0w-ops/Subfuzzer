@@ -3,7 +3,7 @@
 
 ## Installation:
 
-    git clone https://github.com/Shad0w-ops/Subfuzz.git
+    git clone https://github.com/Shad0w-ops/Subfuzzer.git
     
     cd Subfuzz  
  
