@@ -5,7 +5,7 @@
 
     git clone https://github.com/Shad0w-ops/Subfuzzer.git
     
-    cd Subfuzz  
+    cd Subfuzzer
  
     pip3 install -r requirements.txt
   
