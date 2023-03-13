@@ -1,5 +1,5 @@
 # Subfuzz
-## Disclaimer: Made for educational purposes only i wont be held responsible for any missuse of this tool.
+## Disclaimer: Made for educational purposes only i will not be held responsible for any missuse of this tool.
 
 ## Installation:
 
