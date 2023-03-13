@@ -44,6 +44,7 @@ def main():
             print(colored(f'{url} is not a valid subdomain', 'red'))
 
     if valid_subdomains:
+        os.system("clear")
         print('\nValid subdomains found:')
         print('\n'.join(valid_subdomains))
     else:
