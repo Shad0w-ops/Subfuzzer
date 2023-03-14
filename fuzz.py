@@ -13,13 +13,12 @@ import sys
 
 # Defining Banner
 banner = '''
-   _____       _         _                       _         ______                      
-  / ____|     | |       | |                     (_)       |  ____|                     
- | (___  _   _| |__   __| | ___  _ __ ___   __ _ _ _ __   | |__ _   _ ___________ _ __ 
-  \___ \| | | | '_ \ / _` |/ _ \| '_ ` _ \ / _` | | '_ \  |  __| | | |_  /_  / _ \ '__|
-  ____) | |_| | |_) | (_| | (_) | | | | | | (_| | | | | | | |  | |_| |/ / / /  __/ |   
- |_____/ \__,_|_.__/ \__,_|\___/|_| |_| |_|\__,_|_|_| |_| |_|   \__,_/___/___\___|_| 
- --------------------------------------------------------------------------------------
+    _____       __    ________  __                   
+   / ___/__  __/ /_  / ____/ / / /_______  ___  _____
+   \__ \/ / / / __ \/ /_  / / / /_  /_  / / _ \/ ___/
+  ___/ / /_/ / /_/ / __/ / /_/ / / /_/ /_/  __/ /    
+ /____/\__,_/_.___/_/    \____/ /___/___/\___/_/     
+)---------------------V1------------------------(                                              
  '''
 
 # Defining the main function
@@ -29,8 +28,8 @@ def main():
     parser.add_argument('wordlist', help='Wordlist file containing subdomains')
     args = parser.parse_args()
 
-    print("Starting subdomain fuzzing on " + args.domain)
-    print("--------------------------------------------")
+    print("  Starting subdomain fuzzing on " + args.domain)
+    print(" ")
     time.sleep(3)
 
     try:
@@ -60,5 +59,5 @@ def main():
 # Script start
 if __name__ == '__main__':
     os.system("clear")
-    print(colored(banner, 'green'))
+    print(colored(banner, 'red'))
     main()
