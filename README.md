@@ -17,6 +17,3 @@
 ## Example Usage:
     
     python3 fuzz.py website.com Wordlists/subdomains-top1mil-20000.txt
-
-Fixes:
-Time out issue (Fixed)
