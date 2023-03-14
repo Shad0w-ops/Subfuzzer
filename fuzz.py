@@ -1,9 +1,15 @@
+## Author: Sha0w-ops
+## Creation date: 14/3/2023
+## Purpose: Bruteforce subdomains
+
+#Importing modules
 import requests
 import argparse
 from termcolor import colored
 import os
 import time
 
+#Defining the banner
 banner = '''
    _____       _         _                       _         ______                      
   / ____|     | |       | |                     (_)       |  ____|                     
@@ -16,6 +22,7 @@ banner = '''
  '''
 
 
+#Defining the main function
 def main():
     parser = argparse.ArgumentParser(description='Find valid subdomains for a given domain')
     parser.add_argument('domain', help='Target domain')
@@ -49,7 +56,7 @@ def main():
         print('\n'.join(valid_subdomains))
     else:
         print('No valid subdomains found')
-
+#script start
 if __name__ == '__main__':
     os.system("clear")
     print(colored(banner, 'green'))
