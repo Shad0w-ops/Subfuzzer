@@ -1,15 +1,17 @@
-## Author: Sha0w-ops
 ## Creation date: 14/3/2023
-## Purpose: Bruteforce subdomains
+## Author: Shad0w-ops
+## Purpose: Bruteforce Subdomains
 
-#Importing modules
+
+# Importing Modules
 import requests
 import argparse
 from termcolor import colored
 import os
 import time
+import sys
 
-#Defining the banner
+# Defining Banner
 banner = '''
    _____       _         _                       _         ______                      
   / ____|     | |       | |                     (_)       |  ____|                     
@@ -21,8 +23,7 @@ banner = '''
  --------------------------------------------------------------------------------------
  '''
 
-
-#Defining the main function
+# Defining the main function
 def main():
     parser = argparse.ArgumentParser(description='Find valid subdomains for a given domain')
     parser.add_argument('domain', help='Target domain')
@@ -36,27 +37,23 @@ def main():
     with open(args.wordlist) as f:
         subdomains = [line.strip() for line in f]
 
-    valid_subdomains = []
-
     for subdomain in subdomains:
         url = f'http://{subdomain}.{args.domain}'
+        sys.stdout.write(f"\rTrying {subdomain}")
+        sys.stdout.flush()
         try:
             response = requests.get(url)
             if response.status_code == 200:
+                sys.stdout.write(f"\r{' ' * len(url)}\r")
                 print(colored(f'[*] Valid subdomain: {url}', 'green'))
-                valid_subdomains.append(url)
+                
             else:
-                print(f'{url} is not a valid subdomain')
+                sys.stdout.write(f"\r{' ' * len(url)}\r")
         except requests.exceptions.RequestException:
-            print(colored(f'{url} is not a valid subdomain', 'red'))
+            sys.stdout.write(f"\r{' ' * len(url)}\r")
+        sys.stdout.flush()
 
-    if valid_subdomains:
-        os.system("clear")
-        print('\nValid subdomains found:')
-        print('\n'.join(valid_subdomains))
-    else:
-        print('No valid subdomains found')
-#script start
+# Script start
 if __name__ == '__main__':
     os.system("clear")
     print(colored(banner, 'green'))
