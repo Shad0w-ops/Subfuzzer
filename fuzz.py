@@ -13,12 +13,12 @@ import sys
 
 # Defining Banner
 banner = '''
-    _____       __    ________  __                   
-   / ___/__  __/ /_  / ____/ / / /_______  ___  _____
-   \__ \/ / / / __ \/ /_  / / / /_  /_  / / _ \/ ___/
-  ___/ / /_/ / /_/ / __/ / /_/ / / /_/ /_/  __/ /    
- /____/\__,_/_.___/_/    \____/ /___/___/\___/_/     
-)---------------------V1------------------------(                                              
+     _____       __    ______                         
+    / ___/__  __/ /_  / ____/_  __________  ___  _____
+    \__ \/ / / / __ \/ /_  / / / /_  /_  / / _ \/ ___/
+   ___/ / /_/ / /_/ / __/ / /_/ / / /_/ /_/  __/ /    
+  /____/\__,_/_.___/_/    \__,_/ /___/___/\___/_/                                                             
+)---------------------V1-------------------------(                                                 
  '''
 
 # Defining the main function
@@ -28,7 +28,7 @@ def main():
     parser.add_argument('wordlist', help='Wordlist file containing subdomains')
     args = parser.parse_args()
 
-    print("  Starting subdomain fuzzing on " + args.domain)
+    print("Starting subdomain fuzzing on " + args.domain)
     print(" ")
     time.sleep(3)
 
