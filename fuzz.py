@@ -19,7 +19,6 @@ banner = '''
   \___ \| | | | '_ \ / _` |/ _ \| '_ ` _ \ / _` | | '_ \  |  __| | | |_  /_  / _ \ '__|
   ____) | |_| | |_) | (_| | (_) | | | | | | (_| | | | | | | |  | |_| |/ / / /  __/ |   
  |_____/ \__,_|_.__/ \__,_|\___/|_| |_| |_|\__,_|_|_| |_| |_|   \__,_/___/___\___|_| 
-
  --------------------------------------------------------------------------------------
  '''
 
@@ -34,24 +33,29 @@ def main():
     print("--------------------------------------------")
     time.sleep(3)
 
-    with open(args.wordlist) as f:
-        subdomains = [line.strip() for line in f]
+    try:
+        with open(args.wordlist) as f:
+            subdomains = [line.strip() for line in f]
 
-    for subdomain in subdomains:
-        url = f'http://{subdomain}.{args.domain}'
-        sys.stdout.write(f"\rTrying {subdomain}")
-        sys.stdout.flush()
-        try:
-            response = requests.get(url)
-            if response.status_code == 200:
+        for subdomain in subdomains:
+            url = f'http://{subdomain}.{args.domain}'
+            sys.stdout.write(f"\rTrying {subdomain}")
+            sys.stdout.flush()
+            try:
+                response = requests.get(url, timeout=3)
+                if response.status_code == 200:
+                    sys.stdout.write(f"\r{' ' * len(url)}\r")
+                    print(colored(f'[*] Valid subdomain: {url}', 'green'))
+
+                else:
+                    sys.stdout.write(f"\r{' ' * len(url)}\r")
+            except requests.exceptions.RequestException:
                 sys.stdout.write(f"\r{' ' * len(url)}\r")
-                print(colored(f'[*] Valid subdomain: {url}', 'green'))
-                
-            else:
-                sys.stdout.write(f"\r{' ' * len(url)}\r")
-        except requests.exceptions.RequestException:
-            sys.stdout.write(f"\r{' ' * len(url)}\r")
-        sys.stdout.flush()
+            sys.stdout.flush()
+
+    except KeyboardInterrupt:
+        print("\nGoodbye!")
+        sys.exit()
 
 # Script start
 if __name__ == '__main__':
