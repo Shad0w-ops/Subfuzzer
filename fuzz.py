@@ -1,7 +1,7 @@
 ## Creation date: 14/3/2023
+## Updated on 23/9/2023 (Added multi threading)
 ## Author: Shad0w-ops
-## Purpose: Bruteforce Subdomains
-
+## Purpose: Bruteforce Subdomains with Multithreading
 
 # Importing Modules
 import requests
@@ -9,7 +9,7 @@ import argparse
 from termcolor import colored
 import os
 import time
-import sys
+import threading
 
 # Defining Banner
 banner = '''
@@ -20,6 +20,20 @@ banner = '''
   /____/\__,_/_.___/_/    \__,_/ /___/___/\___/_/                                                             
 )----------------------V1-------------------------(                                                 
  '''
+
+# Lock to prevent concurrent printing
+print_lock = threading.Lock()
+
+# Function to check subdomain validity
+def check_subdomain(domain, subdomain):
+    url = f'http://{subdomain}.{domain}'
+    try:
+        response = requests.get(url, timeout=3)
+        if response.status_code == 200:
+            with print_lock:
+                print(colored(f'[*] Valid subdomain: {url}', 'green'))
+    except requests.exceptions.RequestException:
+        pass
 
 # Defining the main function
 def main():
@@ -36,28 +50,21 @@ def main():
         with open(args.wordlist) as f:
             subdomains = [line.strip() for line in f]
 
+        threads = []
         for subdomain in subdomains:
-            url = f'http://{subdomain}.{args.domain}'
-            sys.stdout.write(f"\rTrying {subdomain}")
-            sys.stdout.flush()
-            try:
-                response = requests.get(url, timeout=3)
-                if response.status_code == 200:
-                    sys.stdout.write(f"\r{' ' * len(url)}\r")
-                    print(colored(f'[*] Valid subdomain: {url}', 'green'))
+            t = threading.Thread(target=check_subdomain, args=(args.domain, subdomain))
+            threads.append(t)
+            t.start()
 
-                else:
-                    sys.stdout.write(f"\r{' ' * len(url)}\r")
-            except requests.exceptions.RequestException:
-                sys.stdout.write(f"\r{' ' * len(url)}\r")
-            sys.stdout.flush()
+        # Wait for all threads to finish
+        for t in threads:
+            t.join()
 
     except KeyboardInterrupt:
         print("\nGoodbye!")
-        sys.exit()
 
 # Script start
 if __name__ == '__main__':
-    os.system("clear")
+    os.system("cls")
     print(colored(banner, 'red'))
     main()
